@@ -7,8 +7,8 @@ import logging.handlers
 import requests
 
 ZABBIX_API_URL = "http://127.0.0.1/api_jsonrpc.php"
-UNAME = "APITEST"
-PWORD = "testpassword"
+UNAME = "print_login_here   "
+PWORD = "print_password_here"
 
 r = requests.post(ZABBIX_API_URL,
                   json={
