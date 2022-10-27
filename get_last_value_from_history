@@ -7,8 +7,8 @@ import logging.handlers
 import requests
 
 ZABBIX_API_URL = "http://127.0.0.1/api_jsonrpc.php"
-UNAME = "APITEST"
-PWORD = "testpassword"
+UNAME = "123"
+PWORD = "123"
 
 r = requests.post(ZABBIX_API_URL,
                   json={
@@ -22,8 +22,9 @@ r = requests.post(ZABBIX_API_URL,
 
 #print(json.dumps(r.json(), indent=4, sort_keys=True))
 
-
 AUTHTOKEN = r.json()["result"]
+
+host_group = input("Ведите имя хостгруппы в которой будем осуществлять поиск: ")
 
 def get_hostname(hostid):
     j = requests.post(ZABBIX_API_URL,
@@ -86,8 +87,10 @@ def get_items():
                                         "method": "item.get",
                                         "params": {
                                             "output": ["hostid",
+                                            "groupids",
                                             "key_",
                                             ],
+                                            "group": host_group,
                                             #"hostids": 11232,
                                             "search": {
                                                 "key_": "system.hostname"
@@ -118,8 +121,10 @@ def get_hosts():
                                         "method": "item.get",
                                         "params": {
                                             "output": ["hostid",
+                                            "groupids",
                                             "key_",
                                             ],
+                                            "group": host_group,
                                             #"hostids": 11232,
                                             "search": {
                                                 "key_": "system.hostname"
@@ -141,10 +146,8 @@ def get_hosts():
 #    print(hosts_spisok_1)
     return(hosts_spisok_1)
 
-
-
 def main():
-
+    n = 0
     ab = get_items()
     cd = get_hosts()
 
@@ -153,6 +156,7 @@ def main():
         print("Имя хоста: ",get_hostname(hostid))
         print("Данные по метрике: ",get_history(items))
         print(" ")
-
+        n = n + 1
+    print("Количество полученных значений: ",n)
 
 main()
