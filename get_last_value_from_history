@@ -47,8 +47,6 @@ def get_hostname(hostid):
         data_j_j_1 = "Это шаблон, либо хост в статусе Disabled"
     else:
         data_j_j_1 = (data_j_1['result'][0]['host'])
-    #data_j_1_1 = (data_j_1)['result']['name']
-    #(data_j_1['result'][0]['hostid'])
     return data_j_j_1
 
 
@@ -86,11 +84,12 @@ def get_items():
                                         "method": "item.get",
                                         "params": {
                                             "output": ["hostid",
+                                            "groupids", 
                                             "key_",
                                             ],
                                             #"hostids": 11232,
                                             "search": {
-                                                "key_": "system.hostname"
+                                                "key_": "ICMP ping"
                                             },
                                             "sortfield": "name",
                                             "limit":1000
@@ -104,8 +103,6 @@ def get_items():
 
     for items_ids in (data_1)['result']:
         items_spisok.append(int(items_ids['itemid']))
-#    print(items_spisok)
-#    print(data_1 )
     return(items_spisok)
 
 
@@ -136,9 +133,6 @@ def get_hosts():
 
     for hosts_ids_1 in (data_b_1)['result']:
         hosts_spisok_1.append(int(hosts_ids_1['hostid']))
-#    print(items_spisok)
-#    print(data_1 )
-#    print(hosts_spisok_1)
     return(hosts_spisok_1)
 
 
